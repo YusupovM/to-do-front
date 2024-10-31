@@ -1,0 +1,69 @@
+<div class="p-2">
+  <div class="flex justify-between mb-4 gap-3">
+    <h2 class="text-xl mr-auto">Task List</h2>
+    <button nz-button
+            nzType="primary"
+            (click)="addTask()">
+      Add Task
+    </button>
+    <button nz-button
+            nzDanger
+            (click)="logout()">
+      Log out
+    </button>
+  </div>
+
+  <div class="mb-4">
+    <label class="mr-2">Filter:</label>
+    <nz-select [formControl]="filter.controls.status"
+               class="w-40">
+      <nz-option [nzValue]="taskStatusEnum.All" nzLabel="All"></nz-option>
+      <nz-option [nzValue]="taskStatusEnum.Completed" nzLabel="Completed"></nz-option>
+      <nz-option [nzValue]="taskStatusEnum.Incomplete" nzLabel="Incomplete"></nz-option>
+    </nz-select>
+  </div>
+
+  <nz-table #tasksTable
+            [nzData]="tasks$()"
+            [nzTotal]="total"
+            [nzBordered]="true"
+            [nzFrontPagination]="false"
+            nzShowPagination
+            nzShowSizeChanger
+            (nzQueryParams)="onChangePagination($event)">
+    <thead>
+    <tr>
+      <th nzWidth="25%">Title</th>
+      <th nzWidth="30%">Description</th>
+      <th nzWidth="20%">Creation date</th>
+      <th nzWidth="15%">Status</th>
+      <th nzWidth="10%">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (task of tasksTable.data; track task.id) {
+        <tr>
+          <td>{{ task.title }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.createdAt | date:'dd.MM.yyyy HH:mm' }}</td>
+          <td>{{ task.status }}</td>
+          <td>
+            <button nz-button
+                    nzType="primary"
+                    class="mr-2"
+                    (click)="editTask(task)">
+              Edit
+            </button>
+            <button nz-button
+                    nzDanger
+                    nz-popconfirm
+                    nzPopconfirmTitle="Are you sure delete this task?"
+                    (nzOnConfirm)="deleteTask(task)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>

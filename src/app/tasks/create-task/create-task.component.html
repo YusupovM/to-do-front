@@ -1,0 +1,30 @@
+<form nz-form
+      [formGroup]="form"
+      (ngSubmit)="submit()">
+  <nz-form-item>
+    <nz-form-label nzSpan="5" nzFor="email">Title</nz-form-label>
+    <nz-form-control nzErrorTip="Title is required!">
+      <input nz-input formControlName="title" id="email" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzSpan="5" nzFor="description">Description</nz-form-label>
+    <nz-form-control>
+      <textarea nz-input formControlName="description" id="description"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzSpan="5" nzFor="description">Status</nz-form-label>
+    <nz-form-control>
+      <nz-select formControlName="status">
+        <nz-option [nzValue]="taskStatusEnum.Incomplete" nzLabel="Incomplete"></nz-option>
+        <nz-option [nzValue]="taskStatusEnum.Completed" nzLabel="Completed"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control nzOffset="5">
+      <button nz-button nzType="primary">Save</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
